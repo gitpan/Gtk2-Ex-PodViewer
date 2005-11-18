@@ -1,4 +1,4 @@
-# $Id: Parser.pm,v 1.22 2005/10/04 11:18:04 jodrell Exp $
+# $Id: Parser.pm,v 1.24 2005/11/18 11:07:05 jodrell Exp $
 # Copyright (c) 2003-2005 Gavin Brown. All rights reserved. This program is
 # free software; you can redistribute it and/or modify it under the same
 # terms as Perl itself.
@@ -10,6 +10,8 @@ use vars qw(%ENTITIES $LINK_TEXT_TEMPLATE);
 use Exporter;
 use Locale::gettext;
 use strict;
+
+require 5.8.0;
 
 our @EXPORT_OK = qw(&decode_entities);
 
@@ -232,6 +234,7 @@ sub insert_text {
 
 						if ($command eq 'E') {
 							$text = $ENTITIES{$text} || $text;
+
 						} elsif ($command eq 'L') {
 							push(@{$parser->{links}}, [$text, $parser->{iter}->get_offset]);
 
@@ -253,12 +256,16 @@ sub insert_text {
 						}
 						if (!exists($tagnames{$command})) {
 							carp("warning: unknown formatting code '$command'\n");
+
 						} else {
 							$parser->{buffer}->insert_with_tags_by_name($parser->{iter}, decode_entities($text), $tagnames{$command}, @tags);
+
 						}
+
 					} else {
 						my $text = $_;
 						$parser->{buffer}->insert_with_tags_by_name($parser->{iter}, decode_entities($text), @tags);
+
 					}
 				}
 			}
@@ -291,7 +298,7 @@ sub get_mark {
 
 sub parse_from_file {
 	my ($self, $file) = @_;
-	if (!open(FILE, "$file")) {
+	if (!open(FILE, '<:utf8', $file)) {
 		carp("Cannot open '$file': $!");
 		return undef;
 

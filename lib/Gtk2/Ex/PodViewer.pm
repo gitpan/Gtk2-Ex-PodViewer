@@ -1,4 +1,4 @@
-# $Id: PodViewer.pm,v 1.39 2005/10/04 11:57:52 jodrell Exp $
+# $Id: PodViewer.pm,v 1.40 2005/11/11 15:30:48 jodrell Exp $
 # Copyright (c) 2003-2005 Gavin Brown. All rights reserved. This program is
 # free software; you can redistribute it and/or modify it under the same
 # terms as Perl itself. 
@@ -10,7 +10,7 @@ use Gtk2::Pango;
 use Pod::Simple::Search;
 use strict;
 
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 #
 # we want to create a new signal for this object, which means we need to
@@ -126,7 +126,7 @@ sub INIT_INSTANCE {
 	$self->signal_connect('button_release_event', sub { $self->clicked($_[1]) ; return 0 });
 
 	$self->signal_connect_after('realize' => sub {
-		my ($view) = @_;
+		my $view = shift;
 
 		$view->get_window('text')->set_events([qw(exposure-mask
 							  pointer-motion-mask
