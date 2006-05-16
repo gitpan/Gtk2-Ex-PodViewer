@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# $Id: Makefile.PL,v 1.7 2005/11/18 11:12:52 jodrell Exp $
+# $Id: Makefile.PL,v 1.8 2006/05/16 16:01:19 gavin Exp $
 use ExtUtils::MakeMaker;
 use strict;
 
@@ -22,7 +22,7 @@ WriteMakefile(
     	'Gtk2'			=> 0,
     	'Pod::Parser'		=> 0,
     	'IO::Scalar'		=> 0,
-    	'File::Basename	'	=> 0,
+    	'File::Basename'	=> 0,
     	'Locale::gettext'	=> 0,
     	'Pod::Simple::Search'	=> 0,
     },
