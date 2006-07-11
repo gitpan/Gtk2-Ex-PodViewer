@@ -1,4 +1,4 @@
-# $Id: Parser.pm,v 1.24 2005/11/18 11:07:05 jodrell Exp $
+# $Id: Parser.pm,v 1.25 2006/07/11 12:47:36 gavin Exp $
 # Copyright (c) 2003-2005 Gavin Brown. All rights reserved. This program is
 # free software; you can redistribute it and/or modify it under the same
 # terms as Perl itself.
@@ -9,6 +9,7 @@ use IO::Scalar;
 use vars qw(%ENTITIES $LINK_TEXT_TEMPLATE);
 use Exporter;
 use Locale::gettext;
+use bytes;
 use strict;
 
 require 5.8.0;

@@ -1,4 +1,4 @@
-# $Id: PodViewer.pm,v 1.41 2006/05/16 16:01:19 gavin Exp $
+# $Id: PodViewer.pm,v 1.42 2006/07/11 12:47:36 gavin Exp $
 # Copyright (c) 2003-2005 Gavin Brown. All rights reserved. This program is
 # free software; you can redistribute it and/or modify it under the same
 # terms as Perl itself. 
@@ -10,7 +10,7 @@ use Gtk2::Pango;
 use Pod::Simple::Search;
 use strict;
 
-our $VERSION = '0.15';
+our $VERSION = '0.16';
 
 #
 # we want to create a new signal for this object, which means we need to
