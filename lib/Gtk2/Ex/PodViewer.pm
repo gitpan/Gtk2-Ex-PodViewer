@@ -1,4 +1,4 @@
-# $Id: PodViewer.pm,v 1.42 2006/07/11 12:47:36 gavin Exp $
+# $Id: PodViewer.pm,v 1.44 2006/09/18 09:15:13 gavin Exp $
 # Copyright (c) 2003-2005 Gavin Brown. All rights reserved. This program is
 # free software; you can redistribute it and/or modify it under the same
 # terms as Perl itself. 
@@ -10,7 +10,7 @@ use Gtk2::Pango;
 use Pod::Simple::Search;
 use strict;
 
-our $VERSION = '0.16';
+our $VERSION = '0.17';
 
 #
 # we want to create a new signal for this object, which means we need to
@@ -309,7 +309,7 @@ sub jump_to {
 	my ($self, $name) = @_;
 	my $mark = $self->get_mark($name);
 	return undef unless (ref($mark) eq 'Gtk2::TextMark');
-	return $self->scroll_to_mark($mark, undef, 1, 0, 0);
+	return $self->scroll_to_mark($mark, 0, 1, 0, 0);
 }
 
 =pod
