@@ -1,14 +1,13 @@
-# $Id: Parser.pm,v 1.25 2006/07/11 12:47:36 gavin Exp $
-# Copyright (c) 2003-2005 Gavin Brown. All rights reserved. This program is
+# $Id: Parser.pm,v 1.26 2008/10/04 14:00:24 gavin Exp $
+# Copyright (c) 2003-2008 Gavin Brown. All rights reserved. This program is
 # free software; you can redistribute it and/or modify it under the same
 # terms as Perl itself.
 package Gtk2::Ex::PodViewer::Parser;
 use base 'Pod::Parser';
 use Carp;
 use IO::Scalar;
-use vars qw(%ENTITIES $LINK_TEXT_TEMPLATE);
+use vars qw(%ENTITIES $LINK_TEXT_TEMPLATE $GETTEXT);
 use Exporter;
-use Locale::gettext;
 use bytes;
 use strict;
 
@@ -130,6 +129,12 @@ our %ENTITIES	= (
 
 our $LINK_TEXT_TEMPLATE = '{section} in the {document} manpage';
 
+our $GETTEXT = 0;
+eval qq(
+	use Locale::gettext;
+	$GETTEXT = 1;
+);
+
 =pod
 
 =head1 NAME
@@ -248,7 +253,7 @@ sub insert_text {
 								if ($doc eq '') {
 									$text = $section;
 								} else {
-									$text = gettext($LINK_TEXT_TEMPLATE);
+									$text = ($GETTEXT ? gettext($LINK_TEXT_TEMPLATE) : $LINK_TEXT_TEMPLATE);
 									$text =~ s/\{section\}/$section/g;
 									$text =~ s/\{document\}/$doc/g;
 								}
@@ -363,7 +368,7 @@ The C<$LINK_TEXT_TEMPLATE> class variable contains a string that is used to gene
 
 	LE<lt>foo/barE<gt>
 
-This string is run through the C<gettext()> function from L<Locale::gettext> before it is used, so if your application supports internationalisation, then the string will be translated if it appears in your translation domain. It contains two tokens, C<{section}> and C<{document}>, that are replaced with C<foo> and C<bar> respectively.
+This string is run through the C<gettext()> function from L<Locale::gettext> (if installed) before it is used, so if your application supports internationalisation, then the string will be translated if it appears in your translation domain. It contains two tokens, C<{section}> and C<{document}>, that are replaced with C<foo> and C<bar> respectively.
 
 =head1 SEE ALSO
 
